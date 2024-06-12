@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Çiçek Sulama Uygulaması</title>
+    <title>Çilekimin Bahçesi</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,6 +39,7 @@
             color: white;
             border: none;
             border-radius: 5px;
+            margin-top: 20px; /* Butonun biraz daha yukarıda olması için */
             z-index: 10;
         }
         .waterEffect {
@@ -57,9 +58,9 @@
     </style>
 </head>
 <body>
-    <h1>Çilekimin bahçesi</h1>
+    <h1>Çilekimin Bahçesi</h1>
+    <button id="waterButton">Sulayıcı!</button>
     <div id="garden"></div>
-    <button id="waterButton">Sulama Butonu!</button>
 
     <script>
         let growthStage = 0;
@@ -138,6 +139,7 @@
                 }
             });
 
+            // Sulama efekti ekleyelim
             const waterEffect = document.createElement('div');
             waterEffect.classList.add('waterEffect');
             waterEffect.style.left = `${x + 50}px`;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Çilekimin Çiçek Bahçesi</title>
+    <title>Çilekimin Bahçesi</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,6 +57,22 @@
         }
         .grass {
             fill: green;
+        }
+        .bee {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            z-index: 5;
+            transition: transform 5s linear;
+        }
+        .bee-body {
+            fill: yellow;
+            stroke: black;
+            stroke-width: 2;
+        }
+        .bee-stripe {
+            stroke: black;
+            stroke-width: 2;
         }
     </style>
 </head>
@@ -136,6 +152,39 @@
             }
         }
 
+        function createBee() {
+            const bee = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            bee.setAttribute('class', 'bee');
+            bee.setAttribute('viewBox', '0 0 50 50');
+            bee.setAttribute('width', '40');
+            bee.setAttribute('height', '40');
+
+            bee.innerHTML = `
+                <circle cx="25" cy="25" r="10" class="bee-body"/>
+                <line x1="15" y1="25" x2="35" y2="25" class="bee-stripe"/>
+                <circle cx="20" cy="20" r="2" fill="black"/>
+                <circle cx="30" cy="20" r="2" fill="black"/>
+                <line x1="18" y1="25" x2="18" y2="30" class="bee-stripe"/>
+                <line x1="32" y1="25" x2="32" y2="30" class="bee-stripe"/>
+                <line x1="22" y1="25" x2="22" y2="30" class="bee-stripe"/>
+                <line x1="28" y1="25" x2="28" y2="30" class="bee-stripe"/>
+                <polygon points="25,15 30,20 20,20" fill="white" opacity="0.7"/>
+            `;
+
+            bee.style.left = `${Math.random() * (window.innerWidth - 40)}px`;
+            bee.style.top = `${Math.random() * (window.innerHeight - 40)}px`;
+            garden.appendChild(bee);
+            return bee;
+        }
+
+        function moveBee(bee) {
+            if (flowers.length === 0) return;
+            const targetFlower = flowers[Math.floor(Math.random() * flowers.length)];
+            const targetX = parseInt(targetFlower.style.left, 10) + 100;
+            const targetY = parseInt(targetFlower.style.top, 10) + 100;
+            bee.style.transform = `translate(${targetX - parseInt(bee.style.left, 10)}px, ${targetY - parseInt(bee.style.top, 10)}px)`;
+        }
+
         document.getElementById('waterButton').addEventListener('click', function() {
             const x = Math.random() * (window.innerWidth - 200);
             const y = Math.random() * (window.innerHeight - 200);
@@ -163,6 +212,13 @@
 
             growthStage++;
         });
+
+        // Arılar oluşturuluyor ve çiçekler arasında hareket ettiriliyor
+        const bees = [createBee(), createBee(), createBee(), createBee()];
+
+        setInterval(() => {
+            bees.forEach(bee => moveBee(bee));
+        }, 5000);
     </script>
 </body>
 </html>

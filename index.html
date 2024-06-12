@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Çilekimin Bahçesi</title>
+    <title>Çilekimin Çiçek Bahçesi</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,6 +55,9 @@
             from { opacity: 1; }
             to { opacity: 0; }
         }
+        .grass {
+            fill: green;
+        }
     </style>
 </head>
 <body>
@@ -76,8 +79,15 @@
             flower.style.left = `${x}px`;
             flower.style.top = `${y}px`;
 
+            const grass = `
+                <polygon class="grass" points="90,200 95,180 100,200" />
+                <polygon class="grass" points="100,200 105,185 110,200" />
+                <polygon class="grass" points="110,200 115,190 120,200" />
+            `;
+
             if (type === 1) {
                 flower.innerHTML = `
+                    ${grass}
                     <line class="stem" x1="100" y1="200" x2="100" y2="150" stroke="green" stroke-width="2"/>
                     <ellipse class="leaf" cx="95" cy="170" rx="10" ry="4" fill="green" transform="rotate(-30 95 170)" style="opacity: 0;"/>
                     <ellipse class="leaf" cx="105" cy="170" rx="10" ry="4" fill="green" transform="rotate(30 105 170)" style="opacity: 0;"/>
@@ -92,6 +102,7 @@
                 const colors = ['red', 'blue'];
                 const chosenColor = colors[Math.floor(Math.random() * colors.length)];
                 flower.innerHTML = `
+                    ${grass}
                     <line class="stem" x1="100" y1="200" x2="100" y2="130" stroke="green" stroke-width="2"/>
                     <ellipse class="leaf" cx="90" cy="160" rx="10" ry="4" fill="green" transform="rotate(-30 90 160)" style="opacity: 0;"/>
                     <ellipse class="leaf" cx="110" cy="160" rx="10" ry="4" fill="green" transform="rotate(30 110 160)" style="opacity: 0;"/>
